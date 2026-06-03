@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it-IT" class="js">
 
 <head>
   <meta charset="UTF-8">
@@ -9,27 +9,37 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="tavernetta_2.css">
+  <link rel="icon" type="image/x-icon" href="assets/Tavernetta-logo.jpg">
+  <meta name="description"
+    content="La Tavernetta è una braceria a Porto Cesareo, Puglia, specializzata in carne di podolica alla brace. Scopri il nostro menù e prenota un tavolo!">
 </head>
 
 <body>
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">La <span>Tavernetta</span></a>
-    <ul class="nav-links">
-      <li><a href="#specialita">La Braceria</a></li>
-      <li><a href="#menu">Menù</a></li>
-      <li><a href="#storia">Chi siamo</a></li>
-      <li><a href="#recensioni">Recensioni</a></li>
-      <li><a href="#contatti" class="nav-cta">Prenota</a></li>
-    </ul>
+    <div class="logo-container">
+      <a href="tavernetta_1.html">
+        <img src="assets/Tavernetta-logo.jpg" alt="Company Logo" class="logo">
+      </a>
+      <a href="#home" class="nav-logo">La <span>Tavernetta</span></a>
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#specialita">La Braceria</a></li>
+        <li><a href="#galleria">Galleria</a></li>
+        <li><a href="#podolica">La Podolica</a></li>
+        <li><a href="#menu">Menù</a></li>
+        <li><a href="#recensioni">Recensioni</a></li>
+        <li><a href="#contatti" class="nav-cta">Prenota</a></li>
+      </ul>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-bg"></div>
-
-    <!-- Embers -->
     <div class="ember" style="width:3px;height:3px;bottom:10%;left:20%;--dur:5s;--delay:0s;--dx:20px;"></div>
     <div class="ember" style="width:2px;height:2px;bottom:10%;left:35%;--dur:7s;--delay:1s;--dx:-15px;"></div>
     <div class="ember" style="width:4px;height:4px;bottom:10%;left:55%;--dur:6s;--delay:2s;--dx:25px;"></div>
@@ -37,7 +47,6 @@
     <div class="ember" style="width:3px;height:3px;bottom:10%;left:45%;--dur:8s;--delay:3s;--dx:10px;"></div>
     <div class="ember" style="width:2px;height:2px;bottom:10%;left:80%;--dur:5.5s;--delay:1.5s;--dx:-30px;"></div>
     <div class="ember" style="width:5px;height:5px;bottom:10%;left:25%;--dur:6.5s;--delay:2.5s;--dx:35px;"></div>
-
     <div class="hero-content">
       <div class="hero-logo-circle">
         <svg class="flame-svg" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,9 +63,9 @@
         <span class="la">La</span>
         Tavernetta
       </h1>
-      <p class="hero-tagline">Braceria · Dal Fuoco al Piatto</p>
-      <p class="hero-desc">La carne di podolica, il fuoco vivo, il profumo della brace.<br>Un'esperienza autentica nel
-        cuore del Salento.</p>
+      <p class="hero-tagline">Per la passione <br>"il fuoco vivo che arde dentro di noi" </p>
+      <p class="hero-desc">Offriamo la nostra cucina, una scoperta autentica come non l'avete mai vissuta.<br>Mangiate con noi, per scoprire il gusto della
+        storia Pugliese e delle sue carni.</p>
       <div class="hero-btns">
         <a href="#menu" class="btn-primary">Scopri il Menù</a>
         <a href="#contatti" class="btn-outline">Prenota un Tavolo</a>
@@ -64,20 +73,32 @@
     </div>
   </section>
 
+  <!-- BANNER PUBBLICITARIO 1 -->
+  <div class="banner-wrap">
+    <div class="banner banner-summer">
+      <div class="banner-content">
+        <span class="banner-tag">Offerta Estate 2025</span>
+        <p class="banner-title">Serata Podolica <em>per 2 persone</em></p>
+        <p class="banner-desc">Antipasto · 2 Specialità di Carne · Dessert · 1/2 lt di vino — tutto a soli <strong>€
+            55</strong></p>
+      </div>
+      <a href="#contatti" class="btn-primary">Prenota ora</a>
+    </div>
+  </div>
+
   <!-- SPECIALITÀ -->
   <section class="specialita" id="specialita">
     <div class="specialita-inner">
       <div class="specialita-text fade-in">
         <span class="section-label">La nostra braceria</span>
-        <h2 class="section-title">Carne di qualità,<br><em>fuoco autentico</em></h2>
+        <h2 class="section-title">Carne di qualità,<br><em>cucina autentica</em></h2>
         <div class="divider"></div>
-        <p>Da <em>La Tavernetta</em> la protagonista è la carne di podolica, razza autoctona pugliese allevata allo
-          stato semi-brado tra i pascoli del Salento.
-          <br>Una carne dal sapore deciso, intensa e genuina, che esprime il meglio sulla brace.
-        </p>
-        <p>Ogni taglio viene selezionato con cura e cotto su brace viva di legna, secondo una tradizione che rispetta i
-          tempi e i sapori della cucina del fuoco.</p>
-        <a href="#menu" class="btn-primary" style="display:inline-block; margin-top:1rem;">Vedi il Menù</a>
+        <p>Da <em>La Tavernetta</em> la protagonista è la storia della carne di podolica e del suino nero, razze autoctone pugliesi allevati allo
+          stato semi-brado tra i pascoli del Salento. Una carne dal sapore deciso, intensa e genuina, che esprime il
+          meglio con un bicchiere di vino.</p>
+        <p>Ogni taglio viene selezionato con cura, secondo una tradizione che rispetta i
+          tempi e i sapori, e ne preserva la qualità.</p>
+        <a href="#menu" class="btn-primary" style="display:inline-block;margin-top:1rem;">Vedi il Menù</a>
       </div>
       <div class="specialita-grid fade-in">
         <div class="spec-card">
@@ -86,9 +107,9 @@
           <p>Carne di razza podolica, allevamento semi-brado pugliese. Sapore unico e autentico.</p>
         </div>
         <div class="spec-card">
-          <span class="spec-icon">🔥</span>
-          <h3>Brace Viva</h3>
-          <p>Cottura su brace di legna. Temperatura controllata, crosticina perfetta.</p>
+          <span class="spec-icon">🐖</span>
+          <h3>Suino Nero</h3>
+          <p>La carne del Suino Nero Pugliese è succulenta e aromatica.</p>
         </div>
         <div class="spec-card">
           <span class="spec-icon">🥩</span>
@@ -104,6 +125,140 @@
     </div>
   </section>
 
+  <!-- GALLERIA PIATTI -->
+  <section class="galleria" id="galleria">
+    <div class="galleria-inner">
+      <div class="galleria-header fade-in">
+        <span class="section-label">I nostri piatti</span>
+        <h2 class="section-title">La Galleria<br><em>della Brace</em></h2>
+        <div class="divider center"></div>
+        <p class="galleria-intro">Ogni piatto racconta la storia di una carne eccezionale, lavorata con rispetto e cotta
+          sul fuoco vivo.</p>
+      </div>
+      <div class="gallery-grid fade-in">
+        <div class="gallery-item gallery-featured">
+          <img src="assets/fiorentina_scottona.jpg" alt="Fiorentina alla brace" loading="lazy">
+          <div class="gallery-overlay"><span>Fiorentina di Podolica</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/filetto-di-podolica.jpg" alt="Filetto di Podolica" loading="lazy">
+          <div class="gallery-overlay"><span>Filetto di Podolica</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/hamburger-podolica.jpg" alt="Hamburger podolico" loading="lazy">
+          <div class="gallery-overlay"><span>Hamburger Podolico</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/tagliata-manzo.jpg" alt="Tagliata di manzo" loading="lazy">
+          <div class="gallery-overlay"><span>Tagliata di Manzo</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/mix-bombette.jpg" alt="Bombette pugliesi" loading="lazy">
+          <div class="gallery-overlay"><span>Mix di Bombette</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/salsiccia-podolicA.jpg" alt="Salsiccia alla brace" loading="lazy">
+          <div class="gallery-overlay"><span>Salsiccia della Casa</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/tagliere-2.jpg" alt="Piatti della tradizione" loading="lazy">
+          <div class="gallery-overlay"><span>Specialità del Salento</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="assets/vino-rosso.jpg" alt="Vini del Salento" loading="lazy">
+          <div class="gallery-overlay"><span>Vini del Salento</span></div>
+        </div>
+      </div>
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lbClose">✕</button>
+        <button class="lightbox-nav lightbox-prev" id="lbPrev">‹</button>
+        <img src="" alt="" id="lbImg">
+        <p class="lightbox-caption" id="lbCaption"></p>
+        <button class="lightbox-nav lightbox-next" id="lbNext">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER PUBBLICITARIO 2 -->
+  <div class="banner-wrap">
+    <div class="banner banner-event">
+      <div class="banner-icon">🎉</div>
+      <div class="banner-content">
+        <span class="banner-tag">Eventi Privati</span>
+        <p class="banner-title">Compleanni, Cene Aziendali &amp; <em>Occasioni Speciali</em></p>
+        <p class="banner-desc">Organizziamo il tuo evento con menù personalizzato, atmosfera esclusiva e servizio
+          dedicato fino a 60 coperti.</p>
+      </div>
+      <a href="#contatti" class="btn-primary">Richiedi Info</a>
+    </div>
+  </div>
+
+  <!-- LA PODOLICA -->
+  <section class="podolica" id="podolica">
+    <div class="podolica-inner">
+      <div class="podolica-header fade-in">
+        <span class="section-label">La nostra materia prima</span>
+        <h2 class="section-title">La Razza<br><em>Podolica</em></h2>
+        <div class="divider center"></div>
+        <p class="podolica-intro">Una storia millenaria tra i pascoli della Puglia. La razza podolica è il simbolo della
+          carne autentica del Sud Italia.</p>
+      </div>
+
+      <div class="podolica-story fade-in">
+        <div class="podolica-img-main">
+          <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&q=80"
+            alt="Mucca podolica al pascolo" loading="lazy">
+          <div class="podolica-img-label">Allevamento semi-brado · Puglia</div>
+        </div>
+        <div class="podolica-text">
+          <div class="podolica-fact">
+            <span class="fact-num">5.000</span>
+            <span class="fact-label">anni di storia</span>
+          </div>
+          <h3>Un'eredità antica</h3>
+          <p>E’ tra le popolazioni bovine cosiddette “podoliche”, una delle razze bovine più antiche d'Europa, portati in Italia
+            dalle popolazioni nomadi dell'Asia. Adattata nei secoli ai pascoli aridi del Sud Italia, ha sviluppato
+            caratteristiche uniche di resistenza e sapore. Oggi la “podolica” è presente ed allevata SOLO in Puglia, Basilicata, Calabria e Campania. </p>
+          <p>Grazie all’alimentazione naturale dei bovini allevati allo stato brado, che ne dona proprietà nutrizionali uniche e di qualità, possiamo godere del suo sapore, intenso e saporito.</p>
+        </div>
+      </div>
+
+      <div class="podolica-features fade-in">
+        <div class="podolica-feature-img">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700&q=80" alt="Pascolo pugliese"
+            loading="lazy">
+        </div>
+        <div class="podolica-features-grid">
+          <div class="pf-card">
+            <div class="pf-icon">🌿</div>
+            <h4>Pascolo Naturale</h4>
+            <p>Si nutre di erbe spontanee, arbusti e cereali locali. Nessun mangime industriale.</p>
+          </div>
+          <div class="pf-card">
+            <div class="pf-icon">💪</div>
+            <h4>Carne Magra e Saporita</h4>
+            <p>Muscoli ben sviluppati dal movimento libero producono fibre gustose e digeribili.</p>
+          </div>
+          <div class="pf-card">
+            <div class="pf-icon">🏆</div>
+            <h4>DOP e Presidi Slow Food</h4>
+            <p>Riconosciuta come eccellenza agroalimentare italiana, tutelata dai presidi territoriali.</p>
+          </div>
+          <div class="pf-card">
+            <div class="pf-icon">🔥</div>
+            <h4>Latte dall'elevato valore salutistico</h4>
+            <p>Basta pensare che la sua particolare varietà di caciocavallo è considerata la più nobile e pregiata.</p>
+          </div>
+        </div>
+        <div class="podolica-feature-img">
+          <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=80"
+            alt="Campagna pugliese al tramonto" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MENU -->
   <section class="menu-section" id="menu">
     <div class="menu-section-inner">
@@ -112,11 +267,10 @@
         <h2 class="section-title">I Sapori della<br><em>Tavernetta</em></h2>
         <div class="divider center"></div>
       </div>
-
       <div class="menu-tabs">
         <button class="menu-tab active" onclick="showTab('antipasti',this)">Antipasti</button>
         <button class="menu-tab" onclick="showTab('carne',this)">Specialità</button>
-        <button class="menu-tab" onclick="showTab('contorni',this)">Contorni & Dessert</button>
+        <button class="menu-tab" onclick="showTab('contorni',this)">Contorni &amp; Dessert</button>
         <button class="menu-tab" onclick="showTab('bevande',this)">Bevande</button>
       </div>
 
@@ -339,29 +493,19 @@
                 2,00</span></div>
           </div>
         </div>
-        <div class="coperto-note">
-          Coperto € 2,00 · Alcuni prodotti potrebbero essere surgelati o da noi abbattuti.<br>
-          Si prega di comunicare eventuali allergie e intolleranze.
-        </div>
+        <div class="coperto-note">Coperto € 2,00 · Alcuni prodotti potrebbero essere surgelati o da noi abbattuti.<br>Si
+          prega di comunicare eventuali allergie e intolleranze.</div>
       </div>
     </div>
   </section>
 
-  <!-- STORIA -->
+  <!-- STORIA / CHI SIAMO -->
   <section class="storia" id="storia">
     <div class="storia-inner">
       <div class="storia-visual fade-in">
         <div class="storia-box-main">
-          <div class="fire-illustration">
-            <svg viewBox="0 0 200 240" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M100 10 C100 10, 150 55, 140 100 C170 75, 160 30, 160 30 C185 75, 165 140, 125 165 C138 130, 112 120, 112 120 C120 150, 95 175, 62 168 C25 160, 12 115, 38 85 C50 118, 75 118, 75 118 C38 95, 48 45, 100 10Z"
-                fill="#c0180c" opacity="0.85" />
-              <path
-                d="M100 50 C100 50, 135 82, 125 118 C108 152, 75 150, 72 132 C82 142, 97 138, 101 124 C90 140, 70 130, 80 105 C70 118, 72 95, 100 50Z"
-                fill="#ff8c42" opacity="0.5" />
-              <ellipse cx="100" cy="210" rx="55" ry="12" fill="#8b1009" opacity="0.5" />
-            </svg>
+          <div class="logo-locale">
+            <img src="assets/foto-fuori.jpg" alt="Logo La Tavernetta" loading="lazy" width="600" height="auto">
           </div>
         </div>
         <div class="storia-box-accent">
@@ -380,22 +524,18 @@
           semi-brado, che regala tagli dalla qualità eccezionale e dal gusto inconfondibile.</p>
         <p>Siamo nel cuore di Porto Cesareo, a due passi dal mare cristallino del Salento, per offrirti un'esperienza
           gastronomica che unisce la semplicità della brace con l'eccellenza della materia prima.</p>
-        <div style="display:flex; gap:2rem; margin-top:2rem;">
-          <div>
-            <div
-              style="font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--rosso); font-weight:900; line-height:1;">
-              815+</div>
-            <div
-              style="font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--grigio); margin-top:0.3rem; font-weight:500;">
-              Recensioni</div>
+        <div class="storia-stats">
+          <div class="stat-item">
+            <div class="stat-num">815+</div>
+            <div class="stat-label">Recensioni</div>
           </div>
-          <div>
-            <div
-              style="font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--rosso); font-weight:900; line-height:1;">
-              4.4★</div>
-            <div
-              style="font-size:0.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--grigio); margin-top:0.3rem; font-weight:500;">
-              Valutazione media</div>
+          <div class="stat-item">
+            <div class="stat-num">4.4★</div>
+            <div class="stat-label">Valutazione media</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Anni di attività</div>
           </div>
         </div>
       </div>
@@ -447,6 +587,26 @@
     </div>
   </section>
 
+  <!-- BANNER PUBBLICITARIO 3 -->
+  <div class="banner-wrap">
+    <div class="banner banner-social">
+      <div class="banner-content">
+        <span class="banner-tag">Seguici sui Social</span>
+        <p class="banner-title">Scopri le nostre ultime <em>novità &amp; promozioni</em></p>
+        <p class="banner-desc">Segui La Tavernetta su Facebook per restare aggiornato su eventi speciali, piatti del
+          giorno e offerte stagionali.</p>
+      </div>
+      <a href="https://www.facebook.com/LaTavernettaBraceria" target="_blank" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
+          style="vertical-align:-2px;margin-right:6px">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+        Seguici su Facebook
+      </a>
+    </div>
+  </div>
+
   <!-- CONTATTI -->
   <section class="info" id="contatti">
     <div class="info-inner">
@@ -454,24 +614,21 @@
         <span class="section-label">Dove trovarci</span>
         <h2 class="section-title">Vieni a trovarci<br><em>a Porto Cesareo</em></h2>
         <div class="divider"></div>
-
         <div class="info-block">
           <h3>Indirizzo</h3>
-          <p>Porto Cesareo, Provincia di Lecce<br>Puglia, Italia</p>
+          <p>Via Silvio Pellico, 49, 73010, <br>Porto Cesareo, Italia</p>
         </div>
-
         <div class="info-block">
           <h3>Orari</h3>
           <div class="orari-grid">
             <span class="day">Martedì – Domenica</span>
-            <span class="time">12:30 – 15:00 · 19:30 – 23:00</span>
+            <span class="time">19:30 – 23:00</span>
             <span class="day">Lunedì</span>
             <span class="time">Chiuso</span>
           </div>
-          <p style="margin-top:0.8rem; font-size:0.78rem; color:var(--grigio);">Orari estivi. In bassa stagione
-            verificare disponibilità.</p>
+          <p style="margin-top:0.8rem;font-size:0.78rem;color:var(--grigio);">Orari estivi. In bassa stagione verificare
+            disponibilità.</p>
         </div>
-
         <div class="info-block">
           <h3>Seguici</h3>
           <div class="social-links">
@@ -491,28 +648,23 @@
             </a>
           </div>
         </div>
-
         <div class="info-block">
           <h3>Prenotazioni</h3>
-          <a href="https://www.facebook.com/LaTavernettaBraceria" target="_blank" class="btn-primary"
-            style="display:inline-block; margin-top:0.5rem;">Prenota su Facebook</a>
+          <a href="tel:+39 393 833 9967" target="_blank" class="btn-primary"
+            style="display:inline-block;margin-top:0.5rem;">Chiamaci</a>
         </div>
       </div>
-
       <div class="fade-in">
         <div class="map-area">
-          <div class="map-embed">
-            <div class="map-pin">📍</div>
-            <p>Porto Cesareo · Puglia</p>
-            <a href="https://maps.google.com/?q=La+Tavernetta+Braceria+Porto+Cesareo" target="_blank">Apri in Google
-              Maps →</a>
-          </div>
+          <div class="map-pin">📍</div>
+          <p>Porto Cesareo · Puglia</p>
+          <a href="https://maps.google.com/?q=La+Tavernetta+Braceria+Porto+Cesareo" target="_blank">Apri in Google Maps
+            →</a>
         </div>
-
-        <div style="background:var(--nero); border:1px solid rgba(192,24,12,0.2); padding:2rem; margin-top:1.5rem;">
-          <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--bianco); margin-bottom:1rem;">
-            Come raggiungerci</h3>
-          <p style="color:var(--grigio-chiaro); font-size:0.88rem; line-height:1.8; font-weight:300;">Porto Cesareo si
+        <div style="background:var(--nero);border:1px solid rgba(192,24,12,0.2);padding:2rem;margin-top:1.5rem;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--bianco);margin-bottom:1rem;">Come
+            raggiungerci</h3>
+          <p style="color:var(--grigio-chiaro);font-size:0.88rem;line-height:1.8;font-weight:300;">Porto Cesareo si
             trova sulla costa ionica salentina, a circa 40 km da Lecce e 30 km da Taranto. Facilmente raggiungibile in
             auto dalla SS174.</p>
         </div>
@@ -523,39 +675,18 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">La <span>Tavernetta</span></div>
-    <div class="footer-sub">Braceria · Porto Cesareo · Puglia</div>
-    <p>© 2024 La Tavernetta Braceria — Tutti i diritti riservati</p>
+    <div class="footer-sub">Porto Cesareo · Puglia</div>
+    <p>© 2025 La Tavernetta Braceria — Tutti i diritti riservati</p>
     <p style="margin-top:0.5rem;">
       <a href="https://www.facebook.com/LaTavernettaBraceria" target="_blank"
-        style="color:var(--rosso); text-decoration:none;">Facebook</a>
+        style="color:var(--rosso);text-decoration:none;">Facebook</a>
       &nbsp;·&nbsp;
       <a href="https://www.tripadvisor.it/Restaurant_Review-g1069599-d7905850-Reviews-La_Tavernetta_Braceria-Porto_Cesareo_Province_of_Lecce_Puglia.html"
-        target="_blank" style="color:var(--rosso); text-decoration:none;">TripAdvisor</a>
+        target="_blank" style="color:var(--rosso);text-decoration:none;">TripAdvisor</a>
     </p>
   </footer>
 
-  <script>
-    // Navbar scroll
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
-
-    // Menu tabs
-    function showTab(id, btn) {
-      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      btn.classList.add('active');
-    }
-
-    // Fade in on scroll
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-  </script>
+  <script src="tavernetta_3.js"></script>
 </body>
 
 </html>
