@@ -6,7 +6,7 @@
 /* ── CONFIGURAZIONE STRAPI ───────────────────────────────── */
 const STRAPI_URL = 'https://refined-novelty-d7817d202f.strapiapp.com';
 // Incolla qui il tuo API Token (Settings → API Tokens in Strapi)
-const STRAPI_TOKEN = 'f8bcfa5d6cc46208ad48712a6320152e6772f7e05191629bf90867cc911b0d580b738285c06db9cf832e1e24be5630ecce3cfb1417cab0791dc8b336e6cd6ee3f17db90456735c642b57c0f0b4efaa4dab6957655f02152fbcf3929969493f835dce1b6321f595fec9b5f4db06aa84f40afac37b8badbadfc3d184b4accf04f0';
+const STRAPI_TOKEN = '3e8004cf160f6bbb25ecbd0db747565fa9abf0d3d8abb0b520a56ffa0e5b5e5bc4d83f67bd6291539231016afa300263c0eea2bad9376de7d59da3cf19985099b2b06e79673709f63ea17dad591bb153b48d8d89583cef08089fd58051ada53e11838e90d739fcc746af56508003c69ddd1578d91af3067826ce6a0b3304e74f';
 
 async function strapiGet(endpoint) {
   const res = await fetch(`${STRAPI_URL}/api/${endpoint}?populate=*`, {
