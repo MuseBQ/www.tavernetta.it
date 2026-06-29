@@ -1,6 +1,24 @@
 /* ============================================================
-   LA TAVERNETTA – BRACERIA · tavernetta_3.js
+   LA TAVERNETTA – BRACERIA · main.js
+   Integrazione Strapi CMS
    ============================================================ */
+
+/* ── CONFIGURAZIONE STRAPI ───────────────────────────────── */
+const STRAPI_URL = 'https://refined-novelty-d7817d202f.strapiapp.com';
+// Incolla qui il tuo API Token (Settings → API Tokens in Strapi)
+const STRAPI_TOKEN = 'f8bcfa5d6cc46208ad48712a6320152e6772f7e05191629bf90867cc911b0d580b738285c06db9cf832e1e24be5630ecce3cfb1417cab0791dc8b336e6cd6ee3f17db90456735c642b57c0f0b4efaa4dab6957655f02152fbcf3929969493f835dce1b6321f595fec9b5f4db06aa84f40afac37b8badbadfc3d184b4accf04f0';
+
+async function strapiGet(endpoint) {
+  const res = await fetch(`${STRAPI_URL}/api/${endpoint}?populate=*`, {
+    headers: {
+      'Authorization': `Bearer ${STRAPI_TOKEN}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  if (!res.ok) throw new Error(`Strapi error: ${res.status} su ${endpoint}`);
+  const json = await res.json();
+  return json.data;
+}
 
 /* ── NAVBAR ─────────────────────────────────────────────── */
 const nav = document.getElementById('navbar');
@@ -16,7 +34,6 @@ burger.addEventListener('click', () => {
   navLinks.classList.toggle('open');
 });
 
-// Close menu when a link is clicked
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     burger.classList.remove('open');
@@ -43,25 +60,19 @@ function downloadMenuPdf() {
 }
 
 /* ── GALLERIA LIGHTBOX ───────────────────────────────────── */
-const galleryItems = document.querySelectorAll('.gallery-item');
-const lightbox    = document.getElementById('lightbox');
-const lbImg       = document.getElementById('lbImg');
-const lbCaption   = document.getElementById('lbCaption');
-const lbClose     = document.getElementById('lbClose');
-const lbPrev      = document.getElementById('lbPrev');
-const lbNext      = document.getElementById('lbNext');
-
+let galleryData = [];
 let currentIdx = 0;
 
-// Collect all images + captions from gallery
-const galleryData = Array.from(galleryItems).map(item => ({
-  src:     item.querySelector('img').src,
-  caption: item.querySelector('.gallery-overlay span')?.textContent || ''
-}));
+const lightbox  = document.getElementById('lightbox');
+const lbImg     = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+const lbClose   = document.getElementById('lbClose');
+const lbPrev    = document.getElementById('lbPrev');
+const lbNext    = document.getElementById('lbNext');
 
 function openLightbox(idx) {
   currentIdx = (idx + galleryData.length) % galleryData.length;
-  lbImg.src           = galleryData[currentIdx].src;
+  lbImg.src = galleryData[currentIdx].src;
   lbCaption.textContent = galleryData[currentIdx].caption;
   lightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -72,35 +83,223 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
-galleryItems.forEach((item, idx) => {
-  item.addEventListener('click', () => openLightbox(idx));
-});
-
-lbClose.addEventListener('click', closeLightbox);
-lbPrev.addEventListener('click',  () => openLightbox(currentIdx - 1));
-lbNext.addEventListener('click',  () => openLightbox(currentIdx + 1));
-
-// Close on backdrop click
-lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-  if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'Escape')      closeLightbox();
-  if (e.key === 'ArrowLeft')   openLightbox(currentIdx - 1);
-  if (e.key === 'ArrowRight')  openLightbox(currentIdx + 1);
-});
+function initLightboxListeners() {
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => openLightbox(currentIdx - 1));
+  lbNext.addEventListener('click', () => openLightbox(currentIdx + 1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  openLightbox(currentIdx - 1);
+    if (e.key === 'ArrowRight') openLightbox(currentIdx + 1);
+  });
+}
 
 /* ── FADE IN ON SCROLL ───────────────────────────────────── */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target); // fire once
-    }
-  });
-}, { threshold: 0.1 });
+function initFadeObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+/* ── HELPERS ─────────────────────────────────────────────── */
+function getImageUrl(media) {
+  if (!media?.url) return null;
+  // Se l'URL è relativo (self-hosted), aggiungi il base URL
+  return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`;
+}
+
+function formatPrice(price) {
+  if (!price) return '';
+  return typeof price === 'number'
+    ? `€ ${price.toFixed(2).replace('.', ',')}`
+    : price; // supporta anche "€ 60/kg" come stringa
+}
+
+/* ════════════════════════════════════════════════════════════
+   CARICAMENTO DATI DA STRAPI
+   ════════════════════════════════════════════════════════════ */
+
+/* ── 1. MENU ─────────────────────────────────────────────── */
+async function loadMenu() {
+  try {
+    const items = await strapiGet('voci-menus');
+    // Mappa: categoria → id del pannello HTML
+    const tabMap = {
+      'antipasti':  'antipasti',
+      'specialita': 'carne',
+      'contorni':   'contorni',
+      'bevande':    'bevande'
+    };
+
+    // Svuota tutti i pannelli
+    Object.values(tabMap).forEach(panelId => {
+      const container = document.querySelector(`#${panelId} .menu-items`);
+      if (container) container.innerHTML = '';
+    });
+
+    items.forEach(item => {
+      const { nome, descrizione, prezzo, categoria, disponibile } = item;
+      const panelId = tabMap[categoria?.toLowerCase()] || 'antipasti';
+      const container = document.querySelector(`#${panelId} .menu-items`);
+      if (!container) return;
+
+      const el = document.createElement('div');
+      el.className = 'menu-item';
+      if (disponibile === false) el.style.opacity = '0.5';
+      el.innerHTML = `
+        <div class="menu-item-top">
+          <span class="menu-item-name">${nome}</span>
+          <span class="menu-item-price">${formatPrice(prezzo)}</span>
+        </div>
+        ${descrizione ? `<p class="menu-item-desc">${descrizione}${disponibile === false ? ' — <em>non disponibile</em>' : ''}</p>` : ''}
+      `;
+      container.appendChild(el);
+    });
+
+  } catch (err) {
+    console.warn('Menu: impossibile caricare da Strapi, mantengo HTML statico.', err);
+  }
+}
+
+/* ── 2. GALLERIA ─────────────────────────────────────────── */
+async function loadGalleria() {
+  try {
+    const items = await strapiGet('galleria-fotos');
+    const grid = document.querySelector('.gallery-grid');
+    if (!grid) return;
+
+    // Mantieni il lightbox dentro il genitore, rimuovi solo le cards
+    const existingItems = grid.querySelectorAll('.gallery-item');
+    existingItems.forEach(el => el.remove());
+
+    galleryData = [];
+
+    items.forEach((item, idx) => {
+      const { titolo, immagine } = item;
+      const imgUrl = getImageUrl(immagine);
+      if (!imgUrl) return;
+
+      galleryData.push({ src: imgUrl, caption: titolo || '' });
+
+      const el = document.createElement('div');
+      el.className = 'gallery-item' + (idx === 0 ? ' gallery-featured' : '');
+      el.innerHTML = `
+        <img src="${imgUrl}" alt="${titolo || ''}" loading="lazy">
+        <div class="gallery-overlay"><span>${titolo || ''}</span></div>
+      `;
+      el.addEventListener('click', () => openLightbox(idx));
+      grid.insertBefore(el, grid.querySelector('.lightbox'));
+    });
+
+  } catch (err) {
+    // Fallback: usa le immagini già presenti nell'HTML
+    console.warn('Galleria: uso immagini statiche.', err);
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryData = Array.from(galleryItems).map(item => ({
+      src:     item.querySelector('img').src,
+      caption: item.querySelector('.gallery-overlay span')?.textContent || ''
+    }));
+    galleryItems.forEach((item, idx) => {
+      item.addEventListener('click', () => openLightbox(idx));
+    });
+  }
+}
+
+/* ── 3. RECENSIONI ───────────────────────────────────────── */
+async function loadRecensioni() {
+  try {
+    const items = await strapiGet('recensionis');
+    const grid = document.querySelector('.reviews-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    items.forEach(item => {
+      const { autore, testo, stelle, piattaforma } = item;
+      const starsHtml = '★'.repeat(stelle || 5) + '☆'.repeat(5 - (stelle || 5));
+      const el = document.createElement('div');
+      el.className = 'review-card';
+      el.innerHTML = `
+        <div class="review-stars">${starsHtml}</div>
+        <p class="review-text">${testo}</p>
+        <div class="review-author">${autore}</div>
+        <div class="review-platform">${piattaforma || 'TripAdvisor'}</div>
+      `;
+      grid.appendChild(el);
+    });
+
+  } catch (err) {
+    console.warn('Recensioni: mantengo quelle statiche.', err);
+  }
+}
+
+/* ── 4. ORARI E CONTATTI ─────────────────────────────────── */
+async function loadOrariContatti() {
+  try {
+    const data = await strapiGet('info-ristorante');
+    // data è un singolo oggetto (Single Type in Strapi)
+    const info = Array.isArray(data) ? data[0] : data;
+    if (!info) return;
+
+    const { telefono, indirizzo, orari, chiuso_il } = info;
+
+    // Telefono
+    if (telefono) {
+      const telLink = document.querySelector('a[href^="tel:"]');
+      if (telLink) telLink.href = `tel:${telefono.replace(/\s/g, '')}`;
+    }
+
+    // Indirizzo
+    if (indirizzo) {
+      const addrEl = document.querySelector('.info-block p');
+      if (addrEl) addrEl.innerHTML = indirizzo.replace(/\n/g, '<br>');
+    }
+
+    // Orari (stringa libera o array)
+    if (orari) {
+      const orariGrid = document.querySelector('.orari-grid');
+      if (orariGrid) {
+        // Supporta stringa multiriga: "Martedì – Domenica: 19:30 – 23:00"
+        const righe = orari.split('\n').filter(Boolean);
+        orariGrid.innerHTML = righe.map(r => {
+          const [giorno, ora] = r.split(':').map(s => s.trim());
+          return `<span class="day">${giorno}</span><span class="time">${ora || ''}</span>`;
+        }).join('');
+      }
+      if (chiuso_il) {
+        const orariGrid = document.querySelector('.orari-grid');
+        if (orariGrid) {
+          orariGrid.innerHTML += `<span class="day">${chiuso_il}</span><span class="time">Chiuso</span>`;
+        }
+      }
+    }
+
+  } catch (err) {
+    console.warn('Info ristorante: mantengo dati statici.', err);
+  }
+}
+
+/* ── AVVIO ───────────────────────────────────────────────── */
+async function init() {
+  initLightboxListeners();
+
+  // Carica tutto in parallelo
+  await Promise.allSettled([
+    loadMenu(),
+    loadGalleria(),
+    loadRecensioni(),
+    loadOrariContatti()
+  ]);
+
+  // Avvia le animazioni dopo il caricamento
+  initFadeObserver();
+}
+
+document.addEventListener('DOMContentLoaded', init);
