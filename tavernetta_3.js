@@ -32,6 +32,16 @@ function showTab(id, btn) {
   btn.classList.add('active');
 }
 
+function downloadMenuPdf() {
+  const pdfUrl = 'Rosso Scuro Borgogna Fotografico Elegante Classico Professionale Vino Trifold Brochure (2).pdf';
+  const link = document.createElement('a');
+  link.href = pdfUrl;
+  link.download = pdfUrl.split('/').pop();
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 /* ── GALLERIA LIGHTBOX ───────────────────────────────────── */
 const galleryItems = document.querySelectorAll('.gallery-item');
 const lightbox    = document.getElementById('lightbox');
